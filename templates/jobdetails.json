@@ -2,14 +2,14 @@
        "task_id": {{ task.task_id }},
        "run_status": "{{ task.run_status }}",
        "job_id": "{{ task.job_id }}",
-       "job_type": "{{ task.job_type }}",
+       "job_type": "{{ task.job_type|lower }}",
        "job_name": "{{ task.job_name }}",
        "extra": "{{ task.extra_parameters }}",
        "scheduler": "{{ task.job_scheduler }}",
        "start_date": "{{ task.start_date }}",
        "complete_date": "{{ task.complete_date }}",
   "components": {
-    {% for c in task.components.all %}"{{c.component_type}}": {
+    {% for c in task.components.all %}"{{ c.component_type|lower }}": {
       "component_id": {{ c.component_id }},
       "status": "{{ c.run_status }}",
       "extra": "{{ c.extra_paramters }}",
@@ -20,6 +20,6 @@
     }{% if not forloop.last %},{% endif %}
     {% endfor %}
   },
-  "component_order": [{% for c in component_order %}"{{ c }}"{% if not forloop.last %},{% endif %}{% endfor %}] 
+  "component_order": [{% for c in component_order %}"{{ c|lower }}"{% if not forloop.last %},{% endif %}{% endfor %}] 
   
 }
