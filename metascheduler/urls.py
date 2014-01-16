@@ -15,6 +15,6 @@ if settings.env.DEV_ENV:
     )
 else:
     urlpatterns = patterns('',
-        url(r'^/', include('webui.urls'))
+        url(r'^', include('webui.urls'))
     )
 

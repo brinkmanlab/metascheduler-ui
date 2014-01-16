@@ -13,7 +13,7 @@ sys.path.append(PROJECT_PATH)
 sys.path.append(os.path.join(PROJECT_PATH, 'metascheduler'))
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'metascheduler.settings'
-print BASE_PATH
+
 # Activate your virtual env
 activate_path = os.path.join(BASE_PATH, "env/bin/")
 activate_env=os.path.join(activate_path, "activate_this" + "." + "py")
