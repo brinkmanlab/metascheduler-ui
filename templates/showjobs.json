@@ -1,0 +1,19 @@
+{ "aaData":
+   [
+     {% for j in jobs %}
+     {
+       "task_id": {{ j.task_id }},
+       "run_status": "{{ j.run_status }}",
+       "job_id": "{{ j.job_id }}",
+       "job_type": "{{ j.job_type }}",
+       "job_name": "{{ j.job_name }}",
+       "extra": "{{ j.extra_parameters }}",
+       "scheduler": "{{ j.job_scheduler }}",
+       "start_date": "{{ j.start_date }}",
+       "complete_date": "{{ j.complete_date }}"
+     }{% if not forloop.last %},{% endif %}{% endfor %}   
+   ],
+   "iTotalRecords": {{ j|length }},
+   "iTotalDisplayRecords": 30,
+   "sEcho": 1
+}
