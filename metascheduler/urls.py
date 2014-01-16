@@ -1,13 +1,20 @@
 from django.conf.urls import patterns, include, url
+import settings.env
 
-from django.contrib import admin
-admin.autodiscover()
+#from django.contrib import admin
+#admin.autodiscover()
 
-urlpatterns = patterns('',
+if settings.env.DEV_ENV:
+    urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'metascheduler.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
     #url(r'^admin/', include(admin.site.urls)),
-    url(r'^metascheduler/', include('webui.urls')),
-)
+        url(r'^metascheduler/', include('webui.urls')),
+    )
+else:
+    urlpatterns = patterns('',
+        url(r'^/', include('webui.urls'))
+    )
+
