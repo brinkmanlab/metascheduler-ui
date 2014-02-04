@@ -33,7 +33,7 @@ var anOpen = [];
 function fnFormatDetails ( oTable, nTr )
 {
 	var oData = oTable.fnGetData( nTr );
-	var url = '{% url 'jobdetailsjson' '9999' %}'.replace('9999', oData.job_id);
+	var url = '{% url 'jobdetailsjson' '9999' %}'.replace('9999', oData.task_id);
    	var ret_str = '';
 	$.ajax({
 		url: url,
