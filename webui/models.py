@@ -15,7 +15,7 @@ class Task(models.Model):
     task_id = models.AutoField(primary_key=True)
     run_status = models.CharField(max_length=8, blank=True)
     job_id = models.IntegerField()
-    job_type = models.CharField(max_length=15)
+    job_type = models.CharField(max_length=20)
     job_name = models.CharField(max_length=25, blank=True)
     extra_parameters = models.CharField(max_length=30)
     priority = models.IntegerField(blank=True, null=True)
