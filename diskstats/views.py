@@ -21,7 +21,10 @@ def fetch_roots(request):
 
 def fetch_dirs(request, rootdir):
     context = {}
-        
+
+    print rootdir
+    context['roodir'] = rootdir
+
     try:
         context['dirs'] = diskusage.objects.using("diskgraph").filter(root_dir=rootdir).values("directory").order_by("directory").distinct()
     except:
