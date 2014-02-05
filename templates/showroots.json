@@ -1,0 +1,6 @@
+{
+  "rootdirs": [{% for d in rootdirs.all %}
+  "{{ d.root_dir|lower }}"{% if not forloop.last %},{% endif %}{% endfor %}
+  ] 
+  
+}

@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %} 
+{% csrf_token %}
+
+{% block headextras %}
+    <link href="{% static 'js/chosen/chosen.min.css' %}" rel="stylesheet">
+    <script src="{% static 'js/chosen/chosen.jquery.min.js' %}"></script>
+
+	
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<script type="text/javascript">
+    function init() {
+    	var url = '{% url 'showrootsjson' %}';
+	    $.ajax({
+		url: url,
+		dataType: 'json',
+		async: false,
+		success: function(data) {
+			for (dir in data["rootdirs"]) {
+				$('#rootdir').append("<option>" + data["rootdirs"][dir] + "</option>");
+			}
+	    }
+
+	});
+	$("#rootdir").chosen();
+	
+	$("#dir").chosen({width: "50%"});
+
+	$.ajaxSetup({
+  		data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+	});
+	
+	$("#dir").chosen().change( function() {var rootdir = $('#rootdir').find(":selected").text();
+										   var jsonobj = { "rootdir": rootdir };
+										   var url  = '{% url 'showdirsetjson' %}';
+										   jsonobj.dirs = $('select#dir').val(); 
+										   var json_str = JSON.stringify(jsonobj); 
+										   $.ajax({
+										   url: url,
+										   type: "post",
+										   data: { content: json_str, csrfmiddlewaretoken: '{{ csrf_token }}' },
+										   dataType: 'json',
+										   success: function(data) {
+											  drawGraph(data);
+							                          }});
+               });
+    }
+    
+    function onChangeRoot() {
+    	var rootdir = $('#rootdir').find(":selected").text();
+		$('#dir').empty()
+		var url = '{% url 'showdirsjson' 9999 %}'.replace('9999', rootdir);
+	    $.ajax({
+		url: url,
+		dataType: 'json',
+		async: false,
+		success: function(data) {
+			for (dir in data["directories"]) {
+				$('#dir').append("<option>" + data["directories"][dir] + "</option>");
+			}
+	    }
+    	});
+
+        $("#dir").trigger("chosen:updated");
+
+    }
+
+	function drawGraph(data) {
+        $('#chart').highcharts({
+            chart: {
+                type: 'spline'
+            },
+            title: {
+                text: 'Disk usage'
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: { // don't display the dummy year
+                day: '%e of %b',
+                    month: '%e. %b',
+                    year: '%b'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Disk usage'
+                },
+                min: 0
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        Highcharts.dateFormat('%e. %b', this.x) +': '+ this.y +' ';
+                }
+            },
+            
+            series: data
+        });
+	}
+</script>
+{% endblock %}
+
+{% block content %}
+<select id="rootdir" onchange="onChangeRoot()"></select> &nbsp; <select id="dir" multiple></select><br />
+
+Hello, world.<br />
+
+<style>
+
+#chart svg {
+  height: 400px;
+}
+
+</style>
+
+
+<div id="chart">
+  <svg></svg>
+</div>
+
+{% endblock %}

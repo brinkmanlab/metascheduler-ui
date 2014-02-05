@@ -12,6 +12,7 @@ if settings.env.DEV_ENV:
 
     #url(r'^admin/', include(admin.site.urls)),
         url(r'^metascheduler/', include('webui.urls')),
+        url(r'^diskstats/', include('diskstats.urls'))
     )
 else:
     urlpatterns = patterns('',

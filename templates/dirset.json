@@ -1,0 +1,13 @@
+{% load toutc %}
+[
+{% for dir,dirset in sets.items %}
+  {
+  	"name": "{{ rootdir }}{{ dir }}",
+  	"data": [
+  {% for volsize in dirset %}
+  	[{{ volsize.checkdate|date:"U"|to_utc }}, {{ volsize.size }} ]{% if not forloop.last %},{% endif %}
+  {% endfor %}
+      ]
+  }{% if not forloop.last %},{% endif %}
+{% endfor %}
+]
