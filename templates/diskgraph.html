@@ -53,7 +53,7 @@
 		var jsonobj = { "rootdir": rootdir };
 		var json_str = JSON.stringify(jsonobj); 
 		$('#dir').empty()
-		var url = '{% url 'showdirsjson' 9999 %}'.replace('9999', rootdir);
+		var url = '{% url 'showdirsjson' %}';
 	    $.ajax({
 		url: url,
 		type: "post",

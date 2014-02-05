@@ -7,7 +7,7 @@ from diskstats import views
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^roots/json/$', views.fetch_roots, name='showrootsjson'),
-    url(r'^dirs/json/(?P<rootdir>.+)/$', views.fetch_dirs, name='showdirsjson'),
+    url(r'^dirs/json/$', views.fetch_dirs, name='showdirsjson'),
     url(r'^dirset/json/$', views.fetch_dir_set, name='showdirsetjson'),
 
  #   url(r'^jobs/json/$', views.showjobsjson, name='showjobsjson'),

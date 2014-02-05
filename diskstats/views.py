@@ -19,7 +19,7 @@ def fetch_roots(request):
     
     return render(request, "showroots.json", context, content_type='text/javascript')
 
-def fetch_dirs(request, rootdir):
+def fetch_dirs(request):
     context = {}
 
     if request.method == 'POST':
