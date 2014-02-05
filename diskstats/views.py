@@ -22,8 +22,16 @@ def fetch_roots(request):
 def fetch_dirs(request, rootdir):
     context = {}
 
-    print rootdir
+    if request.method == 'POST':
+        content = request.POST['content']
+        content = json.loads(content)
+        pprint.pprint(content)
+        rootdir = content['rootdir']
+    
     context['roodir'] = rootdir
+
+    print rootdir
+
 
     try:
         context['dirs'] = diskusage.objects.using("diskgraph").filter(root_dir=rootdir).values("directory").order_by("directory").distinct()

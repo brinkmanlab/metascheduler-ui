@@ -50,10 +50,14 @@
     
     function onChangeRoot() {
     	var rootdir = $('#rootdir').find(":selected").text();
+		var jsonobj = { "rootdir": rootdir };
+		var json_str = JSON.stringify(jsonobj); 
 		$('#dir').empty()
 		var url = '{% url 'showdirsjson' 9999 %}'.replace('9999', rootdir);
 	    $.ajax({
 		url: url,
+		type: "post",
+		data: { content: json_str, csrfmiddlewaretoken: '{{ csrf_token }}' },
 		dataType: 'json',
 		async: false,
 		success: function(data) {
