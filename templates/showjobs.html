@@ -77,7 +77,7 @@ var  oTable = $('#{{ jobstablename|default:"jobstable" }}').dataTable({
     "bInfo": true,
     "bFilter": true,
     "sAjaxSource": "{% url 'showjobsjson' %}",
-    "bServerSide": false,
+    "bServerSide": true,
     "aoColumns": arrayColumns,
     "aaSorting": [[ 1, 'asc' ]],
     "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {

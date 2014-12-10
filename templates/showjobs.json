@@ -13,7 +13,7 @@
        "complete_date": "{{ j.complete_date }}"
      }{% if not forloop.last %},{% endif %}{% endfor %}   
    ],
-   "iTotalRecords": {{ j|length }},
-   "iTotalDisplayRecords": 30,
-   "sEcho": 1
+   "iTotalRecords": {{records }},
+   "iTotalDisplayRecords": {{ records }},
+   "sEcho": {{ sEcho }}
 }
