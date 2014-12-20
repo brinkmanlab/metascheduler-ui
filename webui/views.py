@@ -53,7 +53,7 @@ def showjobsjson(request):
     endAt = startAt + toShow
     
     try:
-        jobs = Task.objects.select_related().all()
+        jobs = Task.objects.select_related().order_by('-task_id').all()
         context['records'] = len(jobs)
     except:
         raise Http404
